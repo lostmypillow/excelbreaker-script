@@ -12,9 +12,9 @@ import win32com.client
 
 # This script requires a protected Excel file at this location to run properly.
 
-LOCKED_FILE = r'C:\Users\lost\Downloads\114尾牙活動流程表 (新).docx'
+LOCKED_FILE = r'C:\Users\lost\Downloads\test.docx'
 
-TOTAL_PASSWORDS = 1000000  # "0000" to "9999"
+TOTAL_PASSWORDS = 10000  # "0000" to "9999"
 
 
 # ---------------------
@@ -94,15 +94,13 @@ def try_passwords(start, end, found_event, current_attempts_shared, success_lock
         if found_event.is_set():
             break  # Stop if another process succeeded
 
-        password = f"{p:06d}"  # Convert 7 → "0007", 45 → "0045", etc.
+        password = f"{p:04d}"  # Convert 7 → "0007", 45 → "0045", etc.
 
         try:
 
             # Attempt to open the workbook with the password (blocking, time-consuming operation)
 
-            wb = office_app.Documents.Open(LOCKED_FILE,
-                                           False, True,
-                                           None, password)
+            wb = office_app.Documents.Open(LOCKED_FILE, False, True, None, password)
 
             # --- SUCCESS PATH START ---
 
